@@ -114,6 +114,19 @@ public ResponseEntity<String> updateOfferStatus(@PathVariable Long offerId, @Req
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating status");
     }
 }
+@GetMapping("/dev/notifications")
+public String devNotifications(HttpSession session, Model model) {
+    Long developerUserId = (Long) session.getAttribute("userId");
+    if (developerUserId == null) {
+        return "redirect:/login";
+    }
+
+    // Find all offers for this developer that are Pending
+    List<Offer> offers = offerRepository.findByUserIdAndStatus(developerUserId, Offer.OfferStatus.Pending);
+
+    model.addAttribute("offers", offers);
+    return "notifications_dev";  // your developer notifications html
+}
 
 
 @GetMapping("/profile/{username}")

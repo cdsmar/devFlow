@@ -28,7 +28,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 "/create_project", "/client_dashboard", "/create_profile_dev", "/login_success", "/success",
                 "/login_info", "/view_profile", "/register", "/signup", "/signup_info", "/check-email", "/check-username",
                 "/check-email-login", "/check-password-login", "/index", "/view_client_profile", "/view_developer_profile",
-                "/profile/**", "/devprofile/**","/offers/**","/client/**"
+                "/profile/**", "/devprofile/**","/offers/**","/client/**","/notifications/**","/notifications_dev","/dev/**"
             ).permitAll()
             .anyRequest().authenticated()
         )

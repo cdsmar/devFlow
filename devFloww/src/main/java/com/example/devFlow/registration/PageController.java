@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.devFlow.offer.Offer;
 import com.example.devFlow.offer.OfferRepository;
@@ -79,21 +82,39 @@ public String notifications(HttpSession session, Model model) {
         return "redirect:/login";
     }
 
-    // Fetch all projects posted by this user (client)
     List<Project> userProjects = projectRepository.findByUserId(userId);
-
-    // Extract project IDs
     List<Long> projectIds = userProjects.stream()
                                        .map(Project::getId)
                                        .collect(Collectors.toList());
 
-    // Find offers for those projects
-    List<Offer> offers = offerRepository.findByProjectIdIn(projectIds);
+    // Φέρνουμε μόνο offers που είναι Pending ή Accept (ό,τι θέλεις)
+    List<Offer.OfferStatus> statuses = List.of(Offer.OfferStatus.Pending, Offer.OfferStatus.Accept);
+    List<Offer> offers = offerRepository.findByProjectIdInAndStatusIn(projectIds, statuses);
 
     model.addAttribute("offers", offers);
-
-    return "notifications"; 
+    return "notifications";
 }
+@PostMapping("/offers/{offerId}/status")
+@ResponseBody
+public ResponseEntity<String> updateOfferStatus(@PathVariable Long offerId, @RequestParam String status) {
+    try {
+        Offer offer = offerRepository.findById(offerId)
+                            .orElseThrow(() -> new RuntimeException("Offer not found"));
+
+        // Μετατροπή του status string σε Enum
+        Offer.OfferStatus newStatus = Offer.OfferStatus.valueOf(status);
+
+        offer.setStatus(newStatus);
+        offerRepository.save(offer);
+
+        return ResponseEntity.ok("Status updated");
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body("Invalid status value");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating status");
+    }
+}
+
 
 @GetMapping("/profile/{username}")
 public String showUserProfile(@PathVariable String username, Model model) {

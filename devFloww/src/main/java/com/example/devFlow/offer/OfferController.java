@@ -7,6 +7,7 @@ import com.example.devFlow.user.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.Optional;
 
 @Controller
 public class OfferController {
@@ -92,4 +94,5 @@ public class OfferController {
 
         return "redirect:/client_dashboard?userId=" + userId;
     }
+    
 }

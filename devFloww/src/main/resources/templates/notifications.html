@@ -76,14 +76,27 @@
       No new notifications.
     </div>
   
-    <div th:each="offer : ${offers}" class="notification notification-new-offer d-flex justify-content-between align-items-center" data-offer-id="${offer.id}">
-      <div>
-        <strong>New offer:</strong>
-        <span th:text="${offer.user.username} + ' - ' + ${offer.project.title}"></span>
-      </div>
-      <button class="btn btn-primary btn-sm accept-btn"
-      onclick="handleAccept(this)"
-      th:attr="data-offer-id=${offer.id}">Accept</button>  </div>
+    <div th:each="offer : ${offers}" 
+     class="notification notification-new-offer d-flex justify-content-between align-items-center" 
+     data-offer-id="${offer.id}">
+  <div>
+    <strong>New offer:</strong>
+    <span th:text="${offer.user.username} + ' - ' + ${offer.project.title}"></span>
+  </div>
+  
+  <button th:if="${offer.status == T(com.example.devFlow.offer.Offer.OfferStatus).Accept}"
+          class="btn btn-primary btn-sm accept-btn"
+          th:attr="data-offer-id=${offer.id}"
+          onclick="handleAccept(this)">
+    Accept
+  </button>
+  
+  <button th:if="${offer.status == T(com.example.devFlow.offer.Offer.OfferStatus).Pending}"
+          class="btn btn-warning btn-sm"
+          disabled>
+    Pending
+  </button>
+</div>
 
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

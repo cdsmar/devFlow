@@ -143,7 +143,7 @@ public class ProjectController {
 @GetMapping("/projects/{id}")
 public String getProjectById(@PathVariable Long id, Model model) {
     System.out.println("Fetching project with id: " + id);
-    List<Comment> comments = commentRepository.findByProjectId(id);  // assuming this method exists
+    List<Comment> comments = commentRepository.findByProjectId(id);
     model.addAttribute("comments", comments);
 
     var projectOpt = projectService.findById(id);

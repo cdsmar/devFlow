@@ -32,7 +32,6 @@ public class DeveloperProfile {
 
     public DeveloperProfile() {}
 
-    // Getters and Setters
 
     public Long getId() { return id; }
 

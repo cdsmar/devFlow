@@ -24,7 +24,7 @@ public class OfferService {
         Offer offer = new Offer();
 
         offer.setDescription(request.description());
-        offer.setFileName(request.fileName()); // Αν το Offer entity έχει πεδίο file ως String (όνομα/διαδρομή)
+        offer.setFileName(request.fileName());
 
         return offerRepository.save(offer);
     }

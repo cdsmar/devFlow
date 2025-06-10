@@ -87,10 +87,8 @@ public String notifications(HttpSession session, Model model) {
     List<Offer> offers;
 
     if ("developer".equalsIgnoreCase(role)) {
-        // Developer: fetch offers made BY the developer (user_id == session userId)
         offers = offerRepository.findByUserId(userId);
     } else {
-        // Client: fetch offers made TO their projects
         List<Project> userProjects = projectRepository.findByUserId(userId);
         List<Long> projectIds = userProjects.stream()
                                             .map(Project::getId)
@@ -111,7 +109,6 @@ public ResponseEntity<String> updateOfferStatus(@PathVariable Long offerId, @Req
         Offer offer = offerRepository.findById(offerId)
                             .orElseThrow(() -> new RuntimeException("Offer not found"));
 
-        // Μετατροπή του status string σε Enum
         Offer.OfferStatus newStatus = Offer.OfferStatus.valueOf(status);
 
         offer.setStatus(newStatus);
@@ -131,11 +128,10 @@ public String devNotifications(HttpSession session, Model model) {
         return "redirect:/login";
     }
 
-    // Find all offers for this developer that are Pending
     List<Offer> offers = offerRepository.findByUserIdAndStatus(developerUserId, Offer.OfferStatus.Pending);
 
     model.addAttribute("offers", offers);
-    return "notifications_dev";  // your developer notifications html
+    return "notifications_dev";
 }
 
 
@@ -153,20 +149,6 @@ public String showUserProfile(@PathVariable String username, Model model) {
 
     return "view_client_profile"; 
 }
-/*@GetMapping("/devprofile/{username}")
-public String showDeveloperProfile(@PathVariable String username, Model model) {
-    Optional<DeveloperProfile> profileOptional = developerProfileRepository.findByUserUsername(username);
-
-    if (profileOptional.isEmpty()) {
-        return "redirect:/error"; 
-    }
-
-    DeveloperProfile profile = profileOptional.get();
-    model.addAttribute("profile", profile);
-    model.addAttribute("user", profile.getUser());
-
-    return "view_developer_profile";
-}*/
 
 
     

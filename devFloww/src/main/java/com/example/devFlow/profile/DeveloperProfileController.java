@@ -31,7 +31,7 @@ public class DeveloperProfileController {
     @GetMapping("/create_profile_dev")
     public String showDeveloperProfileForm(@RequestParam("userId") Long userId, Model model) {
         model.addAttribute("userId", userId);
-        return "create_profile_dev"; // your HTML form
+        return "create_profile_dev"; 
     }
 
     @PostMapping("/create_dev")
@@ -65,7 +65,6 @@ public class DeveloperProfileController {
             profile.setCvFileName(filePath);
         }
 
-        // Convert skills (comma-separated)
         List<String> skills = Arrays.stream(skillsInput.split(","))
                                     .map(String::trim)
                                     .filter(s -> !s.isEmpty())
@@ -90,7 +89,7 @@ public class DeveloperProfileController {
         Optional<User> optionalUser = userRepository.findById(userId);
         
         if (!optionalUser.isPresent()) {
-            return "redirect:/login"; // or another appropriate page
+            return "redirect:/login"; 
         }
         
         User user = optionalUser.get();
@@ -98,7 +97,7 @@ public class DeveloperProfileController {
         Optional<DeveloperProfile> optionalProfile = developerProfileRepository.findByUser(user);
     
         if (!optionalProfile.isPresent()) {
-            return "redirect:/create_profile_dev"; // or an appropriate page
+            return "redirect:/create_profile_dev";
         }
         
         DeveloperProfile profile = optionalProfile.get();

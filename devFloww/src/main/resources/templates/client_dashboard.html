@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Project Creation Modal</title>
+  <link rel="icon" href="/images/devFlowIcon.ico" type="image/x-icon">
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap"
     rel="stylesheet"
@@ -163,12 +164,7 @@
                 <a class="nav-link" th:href="@{/developers}">Developers</a>
             </li>
         </ul>
-        <!-- <?php if (!$isLoggedIn): ?> -->
         <a id="sign_in" class="btn btn-outline-light me-2 sign" type="submit" th:href="@{/custom_logout}">Log out</a>
-        <!--  <?php endif; ?>-->
-        <!-- <?php if ($isLoggedIn): ?>
-            <button id="log_out" class="btn btn-outline-light sign" type="submit" onclick="window.location.href='logout.php'">Log out</button>
-        <?php endif; ?> -->
     </div>
 </div>
 </nav>

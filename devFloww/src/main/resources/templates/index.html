@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>DevFlow</title>
-
+    <link rel="icon" href="/images/devFlowIcon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -221,17 +221,9 @@
                 <a class="nav-link" th:href="@{/clients}">Clients</a>
             </li>
         </ul>
-        <!--<form class="d-flex me-3" role="search">
-            <input id="search" class="form-control" type="search" placeholder="Search projects or developers..." aria-label="Search">
-            <button id="search_button" class="btn btn-outline-light me-2" type="submit">Search</button>
-        </form>-->
-        <!-- <?php if (!$isLoggedIn): ?> -->
         <a id="sign_in" th:href="@{/custom_login}">Sign in</a>
         <button id="sign_up" class="btn btn-outline-light sign" type="submit" onclick="window.location.href='/register'">Sign up</button>
-        <!--  <?php endif; ?>-->
-        <!-- <?php if ($isLoggedIn): ?>
-            <button id="log_out" class="btn btn-outline-light sign" type="submit" onclick="window.location.href='logout.php'">Log out</button>
-        <?php endif; ?> -->
+       
     </div>
 </div>
 </nav>

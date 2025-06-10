@@ -194,14 +194,6 @@
                     </li>
 
                 </ul>
-                <form class="d-flex" role="search" id="searchForm" onsubmit="return false;">
-                    <input id="projectSearch" class="form-control" type="search" placeholder="Search for projects..." aria-label="Search"
-                           style="font-size:0.8rem;border-radius: 5px 0 0 5px;height:4.5vh;width:13vw;"/>
-                    <button class="search btn" type="submit"
-                            style="font-size:0.9rem;border-radius: 0 5px 5px 0;border:1px solid black;height:4.5vh;display: flex;justify-content: center;align-items: center;">
-                      Search
-                    </button>
-                  </form>
                 <div class="dropdown d-flex align-items-center ms-4" th:if="${session.isLoggedIn}">
                     <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="/images/profile.jpg" width="40" height="40" class="rounded-circle" />
@@ -287,25 +279,8 @@
 
 </div>
 <script>
-    document.getElementById("applyFiltersBtn").addEventListener("click", function () {
-  const dateFilter = document.querySelector('input[name="featuredOptions"]:checked')?.value;
 
-  const category = document.getElementById("categorySelect").value;
-  const subcategory = document.getElementById("subcategorySelect").value;
-
-  const selectedTags = [];
-  document.querySelectorAll(".tag_button.active").forEach(btn => {
-    selectedTags.push(btn.innerText.trim());
-  });
-
-  const params = new URLSearchParams();
-  if (dateFilter) params.append("date", dateFilter);
-  if (category && category !== "Choose category...") params.append("category", category);
-  if (subcategory && subcategory !== "Choose subcategory...") params.append("subcategory", subcategory);
-  if (selectedTags.length > 0) params.append("tags", selectedTags.join(","));
-
-  window.location.href = "/projects?" + params.toString();
-});
+ 
     document.querySelectorAll('.tag_button').forEach(button => {
             button.addEventListener('click', () => {
                 button.classList.toggle('selected');

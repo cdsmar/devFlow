@@ -173,8 +173,8 @@ public String updateDeveloperProfile(
 
 @GetMapping("/developers")
 public String showDevelopers(Model model) {
-    List<User> developers = userRepository.findByRole("developer");
-    model.addAttribute("developers", developers);
+    List<DeveloperProfile> developerProfiles = developerProfileRepository.findAll();
+    model.addAttribute("developers", developerProfiles);
     return "dev_profiles";
 }
 

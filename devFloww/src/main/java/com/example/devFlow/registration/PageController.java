@@ -78,22 +78,32 @@ public String successPost() {
 @GetMapping("/notifications")
 public String notifications(HttpSession session, Model model) {
     Long userId = (Long) session.getAttribute("userId");
-    if (userId == null) {
+    String role = (String) session.getAttribute("role");
+
+    if (userId == null || role == null) {
         return "redirect:/login";
     }
 
-    List<Project> userProjects = projectRepository.findByUserId(userId);
-    List<Long> projectIds = userProjects.stream()
-                                       .map(Project::getId)
-                                       .collect(Collectors.toList());
+    List<Offer> offers;
 
-    // Φέρνουμε μόνο offers που είναι Pending ή Accept (ό,τι θέλεις)
-    List<Offer.OfferStatus> statuses = List.of(Offer.OfferStatus.Pending, Offer.OfferStatus.Accept);
-    List<Offer> offers = offerRepository.findByProjectIdInAndStatusIn(projectIds, statuses);
+    if ("developer".equalsIgnoreCase(role)) {
+        // Developer: fetch offers made BY the developer (user_id == session userId)
+        offers = offerRepository.findByUserId(userId);
+    } else {
+        // Client: fetch offers made TO their projects
+        List<Project> userProjects = projectRepository.findByUserId(userId);
+        List<Long> projectIds = userProjects.stream()
+                                            .map(Project::getId)
+                                            .collect(Collectors.toList());
+
+        List<Offer.OfferStatus> statuses = List.of(Offer.OfferStatus.Pending, Offer.OfferStatus.Accept);
+        offers = offerRepository.findByProjectIdInAndStatusIn(projectIds, statuses);
+    }
 
     model.addAttribute("offers", offers);
     return "notifications";
 }
+
 @PostMapping("/offers/{offerId}/status")
 @ResponseBody
 public ResponseEntity<String> updateOfferStatus(@PathVariable Long offerId, @RequestParam String status) {

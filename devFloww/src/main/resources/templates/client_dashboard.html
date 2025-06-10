@@ -145,7 +145,7 @@
 </head>
 <body>
   <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary navbar-dark bg-transparent pe-4 ps-4 pt-4">  <div class="container-fluid">
-    <a class="navbar-brand pe-2" href="#" style="color:white;">
+    <a class="navbar-brand pe-2"  style="color:white;">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-brilliance me-1" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16M1 8a7 7 0 0 0 7 7 3.5 3.5 0 1 0 0-7 3.5 3.5 0 1 1 0-7 7 7 0 0 0-7 7"/>
         </svg>
@@ -157,18 +157,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/projects}">Projects</a>
+                <a class="nav-link" href="/projects?is_private=0">Projects</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Developers</a>
+                <a class="nav-link" th:href="@{/developers}">Developers</a>
             </li>
         </ul>
-        <form class="d-flex me-3" role="search">
-            <input id="search" class="form-control" type="search" placeholder="Search projects or developers..." aria-label="Search">
-            <button id="search_button" class="btn btn-outline-light me-2" type="submit">Search</button>
-        </form>
         <!-- <?php if (!$isLoggedIn): ?> -->
-        <button id="sign_in" class="btn btn-outline-light me-2 sign" type="submit" onclick="window.location.href='login.php'">Log out</button>
+        <a id="sign_in" class="btn btn-outline-light me-2 sign" type="submit" th:href="@{/custom_logout}">Log out</a>
         <!--  <?php endif; ?>-->
         <!-- <?php if ($isLoggedIn): ?>
             <button id="log_out" class="btn btn-outline-light sign" type="submit" onclick="window.location.href='logout.php'">Log out</button>
@@ -176,13 +172,24 @@
     </div>
 </div>
 </nav>
+<div class="container mt-5 text-center text-white">
+  <h1 class="display-5 fw-semibold">Welcome to DevFlow</h1>
+  <p class="lead">Connect with top developers and bring your projects to life.</p>
   <button
-    class="btn btn-primary"
+    class="btn btn-outline-light btn-lg mt-3 px-4"
     data-bs-toggle="modal"
     data-bs-target="#addProjectModal"
+    style="border-radius: 50px;"
   >
-    Add Project
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" 
+         class="bi bi-plus-circle me-2" viewBox="0 0 16 16">
+      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </svg>
+    Add New Project
   </button>
+</div>
+
 
   <div
     class="modal fade"
@@ -234,18 +241,9 @@
                     />
                   </svg>
                 </span>
-                <!-- Hidden input to send 1 if unchecked -->
-           <!-- Hidden fallback: default public -->
 <input type="hidden" name="isPrivate" value="0" id="isPrivateHidden" />
 
-<!-- Icon + label -->
-<span id="visibilityIcon">
-  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
-    class="bi bi-unlock-fill" viewBox="0 0 16 16" style="color: gray;">
-    <path fill-rule="evenodd"
-      d="M12 0a4 4 0 0 1 4 4v2.5h-1V4a3 3 0 1 0-6 0v2h.5A2.5 2.5 0 0 1 12 8.5v5A2.5 2.5 0 0 1 9.5 16h-7A2.5 2.5 0 0 1 0 13.5v-5A2.5 2.5 0 0 1 2.5 6H8V4a4 4 0 0 1 4-4" />
-  </svg>
-</span>
+
 
 <label class="form-check-label mb-0"
   style="font-size: 0.8rem; color: gray; margin-right: 3vw"
@@ -577,9 +575,9 @@ const isPrivateHidden = document.getElementById("isPrivateHidden");
     }
 
     visibilityIcon.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16" style="color: gray;">
-        <path d="M8 1a2 2 0 0 0-2 2v3h4V3a2 2 0 0 0-2-2zM3.5 6h9a.5.5 0 0 1 .5.5v7a2.5 2.5 0 0 1-5 0v-7a.5.5 0 0 1 .5-.5z"/>
-      </svg>`;
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
+</svg>`;
     visibilityLabel.textContent = "Private";
   } else {
     if (!document.getElementById("isPrivateHidden")) {

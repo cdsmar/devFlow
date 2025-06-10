@@ -143,15 +143,6 @@
                         <input type="password" th:value="${user.password}" class="form-control" id="oldPassword" name="oldPassword" placeholder="Enter your current password" required />
                     </div>
 
-                    <div class="mb-3">
-                        <label for="password" class="form-label">New Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="New password" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" />
-                    </div>
 
                     <div class="mb-3">
                         <label for="profileDescription" class="form-label">Profile Description</label>
@@ -165,14 +156,6 @@
 
                     <button type="submit" class="btn btn-save">Save Changes</button>
                 </form>
-            </div>
-
-            <div class="col-md-4 d-flex flex-column align-items-center">
-                <label class="form-label mb-3">Current Profile Picture</label>
-                <img id="profilePreview" src="/images/default-profile.png" alt="Profile Picture" class="img-thumbnail" style="max-width: 100%; border-radius: 12px;" />
-                <label for="profilePicture" class="form-label mt-4">Change Profile Picture</label>
-                <input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewImage(event)" />
-                <button type="button" class="btn btn-outline-danger mt-3" onclick="removeProfilePicture()">Remove Profile Picture</button>
             </div>
         </div>
     </div>

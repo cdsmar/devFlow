@@ -58,7 +58,6 @@ public String checkUsername(@ModelAttribute RegistrationRequest registrationRequ
     session.setAttribute("role", savedUser.getRole());
     session.setAttribute("isLoggedIn", true);
     session.setAttribute("userId", savedUser.getId());
-
     System.out.println("Registered and set session:");
     System.out.println(" - Username: " + savedUser.getUsername());
     System.out.println(" - Role: " + savedUser.getRole());
